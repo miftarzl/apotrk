@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { ToastProvider } from '../components/ui'
@@ -28,7 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head />
       <body className="text-slate-800 font-sans flex flex-col min-h-screen">
         <AuthProvider>
-          <Navbar />
+          <Suspense fallback={null}>
+            <Navbar />
+          </Suspense>
           <main className="flex-1">{children}</main>
           <Footer />
           <ToastProvider />
@@ -38,3 +40,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   )
 }
+

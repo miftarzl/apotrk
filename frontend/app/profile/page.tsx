@@ -7,7 +7,8 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { useAuth } from '../../lib/AuthContext'
 import Protected from '../../components/Protected'
-import ProfileAddress from '../../components/ProfileAddress'
+import dynamic from 'next/dynamic'
+const ProfileAddress = dynamic(() => import('../../components/ProfileAddress'), { ssr: false })
 import InvoiceModal from '../../components/orders/InvoiceModal'
 import { ConfirmationModal } from '../../components/ui'
 
@@ -267,7 +268,7 @@ function ChangePasswordForm({ onSubmit, error, message }: any) {
   )
 }
 
-export default function ProfilePage() {
+function ProfilePageContent() {
   const { user, logout } = useAuth()
   const [tab, setTab] = useState<'dashboard'|'cart'|'orders'|'security'>('dashboard')
   const [cart, setCart] = useState<any[]>([])
@@ -1009,3 +1010,12 @@ export default function ProfilePage() {
     </Protected>
   )
 }
+
+export default function ProfilePage() {
+  return (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <ProfilePageContent />
+    </React.Suspense>
+  )
+}
+
