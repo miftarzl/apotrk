@@ -9,7 +9,6 @@ services:
     restart: unless-stopped
     ports:
       - "8102:80"
-      - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
