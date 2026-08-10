@@ -12,7 +12,7 @@ export default function StatsCards() {
     try {
       const backend =
         process.env.NEXT_PUBLIC_BACKEND_URL ||
-        "http://localhost:4000";
+        (typeof window === 'undefined' ? (process.env.NODE_ENV === 'production' ? 'http://backend:4000' : 'http://localhost:4000') : '');
 
       const medsRes = await fetch(`${backend}/api/medicines`, {
         cache: "no-store",

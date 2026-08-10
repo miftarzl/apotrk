@@ -1,4 +1,4 @@
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'
+const API = process.env.NEXT_PUBLIC_API_URL || (typeof window === 'undefined' ? (process.env.NODE_ENV === 'production' ? 'http://backend:4000' : 'http://localhost:4000') : '/api')
 const ADMIN_KEY = process.env.NEXT_PUBLIC_ADMIN_KEY || ''
 
 export async function adminFetch(path: string, opts: any = {}) {
