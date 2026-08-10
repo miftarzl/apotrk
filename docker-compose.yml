@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # -------------------------------------------------------------
   # Nginx Reverse Proxy (Single Entry Point Port 8102 & 80)

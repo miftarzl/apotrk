@@ -11,9 +11,11 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.49.8",
     "bcryptjs": "^2.4.3",
     "framer-motion": "^10.18.0",
+    "sharp": "^0.33.5",
     "html2pdf.js": "^0.14.0",
     "jsonwebtoken": "^9.0.0",
     "leaflet": "^1.9.4",
