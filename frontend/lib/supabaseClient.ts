@@ -107,6 +107,12 @@ export function createMockClient() {
 				return { error: null }
 			}
 		},
+		storage: {
+			from: (_bucket: string) => ({
+				upload: async (name: string, _blob: any, _opts?: any) => ({ data: { path: name }, error: null }),
+				getPublicUrl: (name: string) => ({ data: { publicUrl: `/uploads/${name}` } })
+			})
+		},
 		from: (tableName: string) => makeFrom(tableName)
 	}
 }
@@ -115,6 +121,6 @@ export function createMockClient() {
 // Fall back to an in-browser mock client when `NEXT_PUBLIC_SUPABASE_URL` or
 // `NEXT_PUBLIC_SUPABASE_ANON_KEY` are not provided so public pages still work
 // in local/dev without crashing and stats won't silently remain zero.
-export const supabase = (url && key) ? createClient(url, key) : createMockClient()
+export const supabase: any = (url && key) ? createClient(url, key) : createMockClient()
 
 export default supabase
