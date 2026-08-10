@@ -1,0 +1,7 @@
+[
+  { "id":1, "name":"Promag", "indication":"Meredakan maag dan sakit maag", "symptoms":"nyeri ulu hati, mual, kembung", "disease_history":"gastritis", "description":"Promag digunakan untuk mengurangi asam lambung dan melapisi dinding lambung", "category_id":1, "price":15000, "stock":120 },
+  { "id":2, "name":"Paracetamol", "indication":"Meredakan demam dan nyeri ringan", "symptoms":"demam, sakit kepala, nyeri otot", "disease_history":"", "description":"Paracetamol analgesik umum untuk demam dan nyeri", "category_id":2, "price":2000, "stock":500 },
+  { "id":3, "name":"Omeprazole", "indication":"Terapi tukak lambung dan GERD", "symptoms":"heartburn, regurgitasi", "disease_history":"GERD", "description":"Inhibitor pompa proton untuk menurunkan produksi asam lambung", "category_id":1, "price":35000, "stock":80 },
+  { "id":4, "name":"Amoxicillin", "indication":"Infeksi bakteri", "symptoms":"demam, nyeri tenggorokan", "disease_history":"infeksi berulang", "description":"Antibiotik beta-laktam spektrum luas", "category_id":3, "price":25000, "stock":200 },
+  { "id":5, "name":"Cetirizine", "indication":"Alergi dan rhinitis", "symptoms":"gatal, bersin, hidung berair", "disease_history":"alergi", "description":"Antihistamin generasi kedua", "category_id":4, "price":5000, "stock":150 }
+]

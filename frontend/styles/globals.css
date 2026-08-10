@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== ROOT THEME ===== */
+:root {
+  color-scheme: light;
+  --font-sans: var(--font-plus-jakarta);
+}
+
+/* ===== BASE ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  font-family: var(--font-plus-jakarta);
+
+  /* soft medical gradient background */
+  /* Use a single off-white background to avoid visible banding/overlays.
+     Chosen color: #F8FAFC (soft medical off-white with a touch of blue). */
+  background-color: #eff5fc;
+}
+
+/* ===== TEXT SELECTION ===== */
+::selection {
+  background: #38bdf8;
+  color: white;
+}
+
+/* ===== FORM ELEMENT RESET ===== */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* ===== CUSTOM UTILITIES ===== */
+@layer components {
+
+  .container-page {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* INPUT STYLE MODERN */
+  .input {
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm
+    outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100;
+  }
+
+  /* BUTTON BASE */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-medium
+    transition duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-sky-600 text-white hover:bg-sky-700 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50;
+  }
+
+  /* CARD STYLE SYSTEM */
+  .card {
+    @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200;
+  }
+
+  .card-hover {
+    @apply transition hover:-translate-y-1 hover:shadow-xl;
+  }
+
+}
+
+/* ===== OPTIONAL SHADOW SYSTEM ===== */
+.shadow-soft {
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+}

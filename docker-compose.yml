@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # Nginx Reverse Proxy (Single Entry Point Port 8102 & 80)
+  # Menggabungkan Frontend & Backend dalam 1 Port Luar
+  # -------------------------------------------------------------
+  proxy:
+    image: nginx:alpine
+    container_name: apotek-proxy
+    restart: unless-stopped
+    ports:
+      - "8102:80"
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - apotek-network
+
+  # -------------------------------------------------------------
+  # Frontend Service (Next.js 14)
+  # -------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:-https://krvhiduadiuuvcumfddo.supabase.co}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtydmhpZHVhZGl1dXZjdW1mZGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDkwOTMsImV4cCI6MjA5NDIyNTA5M30.R1juN4rcCWc7WcCvTigOwp2OM47xZ1PoIGAoq15KFKE}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8102}
+    container_name: apotek-frontend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-https://krvhiduadiuuvcumfddo.supabase.co}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtydmhpZHVhZGl1dXZjdW1mZGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NDkwOTMsImV4cCI6MjA5NDIyNTA5M30.R1juN4rcCWc7WcCvTigOwp2OM47xZ1PoIGAoq15KFKE}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8102}
+    networks:
+      - apotek-network
+
+  # -------------------------------------------------------------
+  # Backend Service (Express REST API)
+  # -------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: apotek-backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - SUPABASE_URL=${SUPABASE_URL:-https://krvhiduadiuuvcumfddo.supabase.co}
+      - SUPABASE_SERVICE_ROLE=${SUPABASE_SERVICE_ROLE:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtydmhpZHVhZGl1dXZjdW1mZGRvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODY0OTA5MywiZXhwIjoyMDk0MjI1MDkzfQ.J3BBAkGuGbnaPwx9YPNlPn8yHmeAPX7pW8PM2DvbNqg}
+      - JWT_SECRET=${JWT_SECRET:-super_secret_jwt_key_apotek_2026}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8102}
+    networks:
+      - apotek-network
+
+networks:
+  apotek-network:
+    driver: bridge
