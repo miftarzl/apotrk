@@ -1,4 +1,6 @@
 const { createClient } = require('@supabase/supabase-js')
+const ws = require('ws')
+global.WebSocket = ws
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ''
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_KEY || ''
 
