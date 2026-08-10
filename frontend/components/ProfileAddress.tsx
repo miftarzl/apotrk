@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { toast } from 'react-hot-toast'
 
 // fix leaflet default icon paths
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -28,7 +29,7 @@ const VILLAGES = [
 function DraggableMarker({ position, setPosition }: any) {
 
   useMapEvents({
-    click(e) {
+    click(e: any) {
       setPosition([e.latlng.lat, e.latlng.lng])
     }
   })
